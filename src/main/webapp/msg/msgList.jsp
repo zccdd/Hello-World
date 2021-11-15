@@ -134,7 +134,7 @@
                                     <c:forEach var="i" begin="0" end="${msgList.size()-1}" step="1">
                                         <div style="margin-top: 20px;">
                                             <div style="margin-bottom: 20px;border-top: 1px solid gainsboro;"></div>
-                                            <div style="float: left"><img src="/img/pp.jpg" height="50px" width="50px"></div>
+                                            <div style="float: left"><img src="${msgList[i].urlpath}" height="50px" width="50px"></div>
                                             <div style="margin-left: 75px">
                                                 <a>${msgList[i].userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: darkgray">第${msgList[i].id}楼</span><br/><br/>
                                                     ${msgList[i].message}<br/><br/><br/><br/>

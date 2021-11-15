@@ -1,11 +1,13 @@
 package com.zcc.controller;
 
+import com.google.common.collect.Maps;
 import com.zcc.dao.MsgRepository;
 import com.zcc.dao.UserRepository;
 import com.zcc.entity.Msg;
 import com.zcc.entity.User;
 import com.zcc.util.ZxingHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.beans.BeanMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,9 @@ import java.io.FileOutputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by dell on 2018/5/13.
@@ -39,8 +44,19 @@ public class HelloDD {
         if(user!=null){
             try {
                 List<Msg> msgList = msgRepository.findAll();
+                List<User> userList = userRepository.findAll();
+                Map<String, User> userMap = userList.stream().collect(Collectors.toMap(User::getUserName, Function.identity()));
                 Collections.reverse(msgList);
-                model.addAttribute("msgList",msgList);
+                List<Map<String, Object>> maps = msgList.stream().map(msg -> {
+                    Map<String, Object> map = Maps.newHashMap(BeanMap.create(msg));
+                    if (userMap.get(msg.getUserName()) != null) {
+                        map.put("urlpath", userMap.get(msg.getUserName()).getUrlpath());
+                    } else {
+                        map.put("urlpath", "/img/pp.jpg");
+                    }
+                    return map;
+                }).collect(Collectors.toList());
+                model.addAttribute("msgList",maps);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -73,7 +89,7 @@ public class HelloDD {
         return "redirect:/msgList";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/login2")
     public String login(User user,HttpServletRequest req){
         System.out.println("login..." + user.getUserName());
         User dbuser = userRepository.findByUserName(user.getUserName());

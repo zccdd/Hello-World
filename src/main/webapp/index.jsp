@@ -18,7 +18,7 @@
 		<p>Nice to meet you!</p>
 	</div>
 	
-	<form action="/login" method="post" id="loginForm">
+	<form action="/login2" method="post" id="loginForm">
 		<div>
 			<input type="text" name="userName" class="username" placeholder="用户名" autocomplete="off"/>
 		</div>
