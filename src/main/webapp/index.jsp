@@ -28,6 +28,14 @@
 		<button id="submit" type="submit">登 录</button>
 	</form>
 </div>
+<a href="http://beian.miit.gov.cn/" target="_blank" style="
+	    color: white;
+    text-decoration: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: block;
+">京ICP备2021035896号</a>
 
 <script src="/login/js/jquery.min.js"></script>
 <script src="/login/js/common.js"></script>
